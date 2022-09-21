@@ -17,9 +17,21 @@ export class UrlDashboardComponent implements OnInit {
   form = new FormGroup({
     full_url: new FormControl('', [Validators.required]),
     short_url: new FormControl(''),
+    custom: new FormControl(false),
   });
 
-  constructor(private urlService: UrlService) {}
+  constructor(private urlService: UrlService) {
+    this.custom?.valueChanges.subscribe((change) => {
+      console.log('change', change);
+      if (change) {
+        this.short_url!.enable();
+        console.log('enable');
+      } else {
+        this.short_url!.disable();
+        console.log('disable');
+      }
+    });
+  }
   async ngOnInit(): Promise<void> {
     const pastUrls$ = this.urlService.getAllUrls();
     const pastUrls = await lastValueFrom(pastUrls$).catch((err) => console.log('e'));
@@ -36,6 +48,10 @@ export class UrlDashboardComponent implements OnInit {
 
   get short_url() {
     return this.form.get('short_url');
+  }
+
+  get custom() {
+    return this.form.get('custom');
   }
 
   async createUrlPair() {

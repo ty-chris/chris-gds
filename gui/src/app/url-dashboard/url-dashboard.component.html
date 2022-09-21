@@ -12,19 +12,18 @@
             <mat-label>URL to Shorten</mat-label>
             <input matInput formControlName="full_url" />
           </mat-form-field>
+          <mat-checkbox class="checkbox" formControlName="custom">Custom URL </mat-checkbox>
+
           <mat-form-field appearance="fill">
             <mat-label>Shortened URL</mat-label>
             <input matInput formControlName="short_url" />
           </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit" class="upload-btn" [disabled]="form.invalid">
+            Generate
+          </button>
         </div>
       </form>
-      <div class="actions-container">
-        <mat-checkbox class="checkbox" [(ngModel)]="isCustomUrl">Custom URL </mat-checkbox>
-        {{ isCustomUrl }}
-        <button mat-raised-button color="primary" type="submit" class="upload-btn" [disabled]="form.invalid">
-          Generate
-        </button>
-      </div>
       <div *ngIf="createdUrl">
         Generated URL: <a>{{ createdUrl }}</a>
       </div>

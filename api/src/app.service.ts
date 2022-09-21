@@ -12,7 +12,9 @@ export class AppService {
   ) {}
 
   async create(createUrlPairDto: CreateUrlPairDto): Promise<UrlPairEntity> {
-    const shortUrlKey = createUrlPairDto.short_url;
+    const shortUrlKey = createUrlPairDto.short_url
+      ? createUrlPairDto.short_url
+      : '';
     // const alreadyCreated = await this.urlRepository.findOne({
     //   short_url: shortUrlKey,
     // });
