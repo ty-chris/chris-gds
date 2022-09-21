@@ -1,0 +1,48 @@
+<mat-toolbar>
+  <span>Quick Url Shortener</span>
+</mat-toolbar>
+<div class="container">
+  <mat-card>
+    <mat-card-title>URL Shortener</mat-card-title>
+    <mat-card-subtitle>Shorten your links with just a click!</mat-card-subtitle>
+    <mat-card-content>
+      <form class="form-group" [formGroup]="form">
+        <div class="form-container">
+          <mat-form-field appearance="fill">
+            <mat-label>URL to Shorten</mat-label>
+            <input matInput formControlName="full_url" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Shortened URL</mat-label>
+            <input matInput formControlName="short_url" />
+          </mat-form-field>
+        </div>
+      </form>
+      <div class="actions-container">
+        <mat-checkbox class="checkbox" [(ngModel)]="isCustomUrl">Custom URL </mat-checkbox>
+        {{ isCustomUrl }}
+        <button mat-raised-button color="primary" type="submit" class="upload-btn" [disabled]="form.invalid">
+          Generate
+        </button>
+      </div>
+      <div *ngIf="createdUrl">
+        Generated URL: <a>{{ createdUrl }}</a>
+      </div>
+    </mat-card-content>
+    <mat-card-footer
+      ><div class="footer-container">
+        <h1>Generated URL</h1>
+        <div *ngIf="history">
+          <h3>Past shortened URLs</h3>
+          <mat-list>
+            <mat-list-item *ngFor="let urlPair of history"
+              ><div matLine>Shortened: {{ urlPair.short_url }}</div>
+              <div matLine>Original: {{ urlPair.full_url }}</div></mat-list-item
+            >
+          </mat-list>
+        </div>
+        <div *ngIf="!history"><h3>No shortened URLs yet!</h3></div>
+      </div></mat-card-footer
+    >
+  </mat-card>
+</div>
