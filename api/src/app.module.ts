@@ -13,10 +13,7 @@ import { join } from 'path';
     MikroOrmModule.forRoot({
       entities: ['./dist/entities'],
       entitiesTs: ['./src/entities'],
-      dbName: process.env.DB_NAME || Constants.DB_NAME,
-      host: process.env.DB_HOST || Constants.DB_HOST,
-      port: (process.env.DB_PORT as unknown as number) || Constants.DB_PORT,
-      password: process.env.DB_PASSWORD || Constants.DB_PASSWORD,
+      clientUrl: process.env.DB_CLIENT_URL || Constants.DB_CLIENT_URL,
       type: 'postgresql',
     }),
     ConfigModule.forRoot({ isGlobal: true }),

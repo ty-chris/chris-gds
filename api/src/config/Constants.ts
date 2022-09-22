@@ -1,8 +1,5 @@
 // database settings
 export class Constants {
-  public static readonly DB_HOST = 'localhost';
-  public static readonly DB_PORT = 5432;
-  public static readonly DB_USERNAME = 'postgres';
-  public static readonly DB_PASSWORD = 'password';
-  public static readonly DB_NAME = 'gds-db';
+  public static readonly DB_CLIENT_URL =
+    'postgresql://postgres:password@127.0.0.1:5432/gds-db';
 }
