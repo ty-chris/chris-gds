@@ -13,6 +13,7 @@ import { UrlService } from '../services/url.service';
 export class UrlDashboardComponent implements OnInit {
   history: UrlPairModel[];
   createdUrl: string | undefined;
+  createdShortKey: string | undefined;
   isCustomUrl: boolean;
 
   currHost: string;
@@ -83,12 +84,8 @@ export class UrlDashboardComponent implements OnInit {
   }
 
   navigateTo(short_key: string): void {
-    const url = this.getShortUrl(short_key);
+    console.log('short_key', short_key);
     this.router.navigate([short_key]);
-  }
-
-  navigateFullUrl(url): void {
-    this.router.navigateByUrl(url);
   }
 
   async createUrlPair() {
@@ -107,6 +104,7 @@ export class UrlDashboardComponent implements OnInit {
     const create$ = this.urlService.createUrl(urlPair);
     const created = await lastValueFrom(create$).catch((err) => {
       this.createdUrl = undefined;
+      this.createdShortKey = undefined;
       this.errMsg = this.custom?.value
         ? 'Unable to create shortened URL, custom URL might have been taken already.'
         : 'Unable to create shortened URL, please try again later.';
@@ -116,6 +114,7 @@ export class UrlDashboardComponent implements OnInit {
       this.errMsg = undefined;
       const baseUrl = window.location.host;
       this.createdUrl = baseUrl + `/${created.short_url}`;
+      this.createdShortKey = created.short_url;
 
       // Update list of past Urls
       await this.initPastUrls();

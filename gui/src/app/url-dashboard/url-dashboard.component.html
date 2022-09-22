@@ -33,9 +33,9 @@
             Generate
           </button>
 
-          <div *ngIf="createdUrl" class="margin-top">
+          <div *ngIf="createdUrl && createdShortKey" class="margin-top">
             Generated URL:
-            <a class="link margin-top" (click)="navigateFullUrl(createdUrl)">{{
+            <a class="link margin-top" (click)="navigateTo(createdShortKey)">{{
               createdUrl
             }}</a>
           </div>
