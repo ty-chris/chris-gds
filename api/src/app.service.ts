@@ -1,8 +1,13 @@
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUrlPairDto } from './dto/create-url-pair.dto';
 import { UrlPairEntity } from './entities/UrlPairEntity';
+import generateHash from 'random-hash';
 
 @Injectable()
 export class AppService {
@@ -12,23 +17,40 @@ export class AppService {
   ) {}
 
   async create(createUrlPairDto: CreateUrlPairDto): Promise<UrlPairEntity> {
+    console.log('check ehre', createUrlPairDto);
     const shortUrlKey = createUrlPairDto.short_url
       ? createUrlPairDto.short_url
-      : '';
-    // const alreadyCreated = await this.urlRepository.findOne({
-    //   short_url: shortUrlKey,
-    // });
+      : await this.getRandomHash();
 
-    // if (!alreadyCreated) {
-    const newPair = new UrlPairEntity(
-      createUrlPairDto.full_url,
-      createUrlPairDto.short_url,
-    );
+    console.log('check shorturl', shortUrlKey);
 
-    await this.urlRepository.persistAndFlush(newPair);
+    const alreadyCreated = await this.urlRepository.findOne({
+      short_url: shortUrlKey,
+    });
 
-    return newPair;
-    // }
+    if (!alreadyCreated) {
+      console.log('creating');
+      const newPair = new UrlPairEntity(createUrlPairDto.full_url, shortUrlKey);
+
+      await this.urlRepository.persistAndFlush(newPair);
+
+      return newPair;
+    } else {
+      throw new BadRequestException('Short URL Key has already been taken!');
+    }
+  }
+
+  async getRandomHash(): Promise<string> {
+    let exists = true;
+    let randomHash;
+    while (exists) {
+      randomHash = generateHash({ length: 6 });
+      exists = !!(await this.urlRepository.findOne({
+        short_url: randomHash,
+      }));
+    }
+
+    return randomHash;
   }
 
   async getAll(): Promise<UrlPairEntity[]> {

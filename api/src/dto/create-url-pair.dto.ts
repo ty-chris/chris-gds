@@ -1,11 +1,11 @@
 import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class CreateUrlPairDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   short_url: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   full_url: string;
 }

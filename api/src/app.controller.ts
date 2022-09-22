@@ -17,8 +17,9 @@ export class AppController {
   }
 
   @Post()
-  createUrlPair(@Body() createUrlPairDto: CreateUrlPairDto) {
+  async createUrlPair(@Body() createUrlPairDto: CreateUrlPairDto) {
     console.log('check', createUrlPairDto);
-    return this.appService.create(createUrlPairDto);
+    const urlPair = await this.appService.create(createUrlPairDto);
+    return urlPair;
   }
 }

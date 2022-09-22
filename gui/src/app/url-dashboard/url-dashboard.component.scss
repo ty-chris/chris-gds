@@ -1,42 +1,59 @@
 .container {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 }
 
 .form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
 }
 
 .form-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px;
+  display: flex;
+  padding-top: 30px;
+  justify-content: center;
+  min-height: 200px;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .checkbox {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .actions-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.list-item {
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.link {
+  color: #23a6d5;
+  cursor: pointer;
 }

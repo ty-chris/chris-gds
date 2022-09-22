@@ -12,14 +12,24 @@
             <mat-label>URL to Shorten</mat-label>
             <input matInput formControlName="full_url" />
           </mat-form-field>
-          <mat-checkbox class="checkbox" formControlName="custom">Custom URL </mat-checkbox>
+          <mat-checkbox class="checkbox" formControlName="custom"
+            >Custom URL
+          </mat-checkbox>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Shortened URL</mat-label>
-            <input matInput formControlName="short_url" />
-          </mat-form-field>
-
-          <button mat-raised-button color="primary" type="submit" class="upload-btn" [disabled]="form.invalid">
+          <div *ngIf="this.form.value.custom">
+            <mat-form-field appearance="fill">
+              <mat-label>Shortened URL</mat-label>
+              <input matInput formControlName="short_url" />
+            </mat-form-field>
+          </div>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="upload-btn"
+            [disabled]="form.invalid"
+            (click)="createUrlPair()"
+          >
             Generate
           </button>
         </div>
@@ -31,16 +41,23 @@
     <mat-card-footer
       ><div class="footer-container">
         <h1>Generated URL</h1>
-        <div *ngIf="history">
+        <div *ngIf="history" class="history-container">
           <h3>Past shortened URLs</h3>
           <mat-list>
-            <mat-list-item *ngFor="let urlPair of history"
-              ><div matLine>Shortened: {{ urlPair.short_url }}</div>
+            <mat-list-item *ngFor="let urlPair of history" class="list-item"
+              ><div matLine>
+                Shortened:
+                <a class="link" (click)="navigateTo(urlPair.short_url)">{{
+                  getShortUrl(urlPair.short_url)
+                }}</a>
+              </div>
               <div matLine>Original: {{ urlPair.full_url }}</div></mat-list-item
             >
           </mat-list>
         </div>
-        <div *ngIf="!history"><h3>No shortened URLs yet!</h3></div>
+        <div class="history-container" *ngIf="!history">
+          <h3>No shortened URLs yet!</h3>
+        </div>
       </div></mat-card-footer
     >
   </mat-card>
