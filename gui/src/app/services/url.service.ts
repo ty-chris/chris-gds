@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UrlPairModel } from '../models/url-pair.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class UrlService {
     return this.http.get<any>(url).pipe(catchError(this.handleError));
   }
 
-  getAllUrls() {
+  getAllUrls(): Observable<UrlPairModel[]> {
     const url = this.baseUrl + '/all';
     return this.http.get<any>(url).pipe(catchError(this.handleError));
   }

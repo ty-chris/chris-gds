@@ -1,5 +1,6 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Constants } from './config/Constants';
@@ -16,6 +17,7 @@ import { UrlPairEntity } from './entities/UrlPairEntity';
       password: Constants.DB_PASSWORD,
       type: 'postgresql',
     }),
+    ConfigModule.forRoot({ isGlobal: true }),
     MikroOrmModule.forFeature({ entities: [UrlPairEntity] }),
   ],
   controllers: [AppController],

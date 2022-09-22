@@ -18,7 +18,6 @@ export class AppController {
 
   @Post()
   async createUrlPair(@Body() createUrlPairDto: CreateUrlPairDto) {
-    console.log('check', createUrlPairDto);
     const urlPair = await this.appService.create(createUrlPairDto);
     return urlPair;
   }

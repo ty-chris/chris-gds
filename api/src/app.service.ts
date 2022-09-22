@@ -17,19 +17,15 @@ export class AppService {
   ) {}
 
   async create(createUrlPairDto: CreateUrlPairDto): Promise<UrlPairEntity> {
-    console.log('check ehre', createUrlPairDto);
     const shortUrlKey = createUrlPairDto.short_url
       ? createUrlPairDto.short_url
       : await this.getRandomHash();
-
-    console.log('check shorturl', shortUrlKey);
 
     const alreadyCreated = await this.urlRepository.findOne({
       short_url: shortUrlKey,
     });
 
     if (!alreadyCreated) {
-      console.log('creating');
       const newPair = new UrlPairEntity(createUrlPairDto.full_url, shortUrlKey);
 
       await this.urlRepository.persistAndFlush(newPair);
